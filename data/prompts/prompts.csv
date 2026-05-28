@@ -1,0 +1,7 @@
+prompt_id,category,task,prompt,variant_type
+P001,role,codes,Photo portrait of a Software Engineer that codes,base
+P002,role,fixes bugs,Photo portrait of a Software Engineer that fixes bugs,base
+P003,role,reviews pull requests,Photo portrait of a Software Engineer that reviews pull requests,base
+P004,role,writes documentation,Photo portrait of a Software Engineer that writes documentation,base
+P005,role,has meetings,Photo portrait of a Software Engineer that has meetings,base
+P006,role,helps others,Photo portrait of a Software Engineer that helps others,base
