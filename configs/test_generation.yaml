@@ -1,0 +1,25 @@
+project:
+  name: "SynthSE"
+  description: "Local text-to-image generation pipeline for Software Engineering scenarios"
+
+model:
+  name: "tiny-stable-diffusion"
+  huggingface_id: "hf-internal-testing/tiny-stable-diffusion-pipe"
+  device: "cuda"
+
+generation:
+  num_images_per_prompt: 1
+  num_inference_steps: 2
+  guidance_scale: 7.5
+  width: 64
+  height: 64
+  seeds: [42]
+
+paths:
+  prompts_file: "data/prompts/prompts.csv"
+  output_images_dir: "outputs/images"
+  output_logs_dir: "outputs/logs"
+  output_results_dir: "outputs/results"
+
+run:
+  max_prompts: 1
