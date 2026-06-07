@@ -8,13 +8,18 @@ def load_text_to_image_pipeline(model_id: str, device: str):
 
     Args:
         model_id: Hugging Face model identifier.
-        device: Target device, usually 'cuda' or 'cpu'.
+        device: Requested device, usually 'cuda' or 'cpu'.
 
     Returns:
-        A loaded Stable Diffusion pipeline.
+        A tuple containing the loaded pipeline and the actual device used.
     """
-    torch_dtype = torch.float16 if device == "cuda" and torch.cuda.is_available() else torch.float32
-    actual_device = "cuda" if device == "cuda" and torch.cuda.is_available() else "cpu"
+    cuda_available = torch.cuda.is_available()
+    actual_device = "cuda" if device == "cuda" and cuda_available else "cpu"
+    torch_dtype = torch.float16 if actual_device == "cuda" else torch.float32
+
+    print(f"Loading model: {model_id}")
+    print(f"Requested device: {device}")
+    print(f"Actual device: {actual_device}")
 
     pipeline = StableDiffusionPipeline.from_pretrained(
         model_id,
@@ -25,5 +30,8 @@ def load_text_to_image_pipeline(model_id: str, device: str):
 
     pipeline = pipeline.to(actual_device)
     pipeline.set_progress_bar_config(disable=False)
+
+    if actual_device == "cuda":
+        pipeline.enable_attention_slicing()
 
     return pipeline, actual_device

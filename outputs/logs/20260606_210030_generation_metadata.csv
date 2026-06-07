@@ -1,0 +1,2 @@
+experiment_id,timestamp,prompt_id,category,task,variant_type,prompt,seed,image_id,model_name,model_huggingface_id,requested_device,actual_device,gpu_name,num_inference_steps,guidance_scale,width,height,image_path,execution_time_seconds,status,error_message
+20260606_210030,2026-06-06T21:00:32,P001,role,codes,base,Photo portrait of a Software Engineer that codes,42,P001_seed_42,tiny-stable-diffusion,hf-internal-testing/tiny-stable-diffusion-pipe,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,2,7.5,64,64,outputs/images/20260606_210030/P001_seed_42.png,1.6218,generated,

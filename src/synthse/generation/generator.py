@@ -26,7 +26,7 @@ def generate_image(
     Generate a single image and save it to disk.
 
     Returns:
-        Metadata about the generation process.
+        A dictionary containing generation metadata.
     """
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
