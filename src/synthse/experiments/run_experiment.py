@@ -23,7 +23,7 @@ def load_prompts(prompts_path: str) -> pd.DataFrame:
 
     prompts = pd.read_csv(path)
 
-    required_columns = {"prompt_id", "category", "task", "prompt", "variant_type"}
+    required_columns = {"prompt_id", "category", "task", "prompt_style", "prompt", "variant_type"}
     missing_columns = required_columns - set(prompts.columns)
 
     if missing_columns:
@@ -71,6 +71,7 @@ def build_base_record(
         "category": row["category"],
         "task": row["task"],
         "variant_type": row["variant_type"],
+        "prompt_style": row["prompt_style"],
         "prompt": row["prompt"],
         "seed": seed,
         "image_id": image_id,
