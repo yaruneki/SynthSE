@@ -1,0 +1,29 @@
+source:
+  experiment_id: "20260704_191830"
+  metadata_file: "outputs/logs/20260704_191830_generation_metadata.csv"
+  images_dir: "outputs/images/20260704_191830"
+
+output:
+  corrupted_images_dir: "outputs/corrupted_images/20260704_191830_noise"
+  metadata_file: "outputs/logs/20260704_191830_noise_metadata.csv"
+
+noise:
+  random_seed: 123
+  corruptions:
+    - type: "gaussian"
+      levels:
+        - name: "std_05"
+          std: 5
+        - name: "std_15"
+          std: 15
+        - name: "std_30"
+          std: 30
+
+    - type: "salt_pepper"
+      levels:
+        - name: "amount_001"
+          amount: 0.01
+        - name: "amount_003"
+          amount: 0.03
+        - name: "amount_005"
+          amount: 0.05
