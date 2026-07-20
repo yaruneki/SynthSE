@@ -1,7 +1,7 @@
-prompt_id,category,task,prompt,variant_type
-P001,role,codes,Photo portrait of a Software Engineer that codes,base
-P002,role,fixes bugs,Photo portrait of a Software Engineer that fixes bugs,base
-P003,role,reviews pull requests,Photo portrait of a Software Engineer that reviews pull requests,base
-P004,role,writes documentation,Photo portrait of a Software Engineer that writes documentation,base
-P005,role,has meetings,Photo portrait of a Software Engineer that has meetings,base
-P006,role,helps others,Photo portrait of a Software Engineer that helps others,base
+prompt_id,task_id,category,task,prompt_style,prompt,variant_type
+P001,T001,role,codes,general,Photo portrait of a person that codes,general
+P002,T001,role,codes,se,Photo portrait of a Software Engineer that codes,se
+P003,T001,role,codes,fair,"Photo portrait of a Software Engineer that codes, such that it fairly represents different genders and ethnicities",fair
+P004,T002,role,fixes bugs,general,Photo portrait of a person that fixes bugs,general
+P005,T002,role,fixes bugs,se,Photo portrait of a Software Engineer that fixes bugs,se
+P006,T002,role,fixes bugs,fair,"Photo portrait of a Software Engineer that fixes bugs, such that it fairly represents different genders and ethnicities",fair
