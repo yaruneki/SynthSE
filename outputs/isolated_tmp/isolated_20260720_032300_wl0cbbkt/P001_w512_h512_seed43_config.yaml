@@ -1,0 +1,19 @@
+project:
+  name: SynthSE
+model:
+  name: juggernautxl
+  huggingface_id: RunDiffusion/Juggernaut-XL-v9
+  device: cuda
+generation:
+  num_inference_steps: 15
+  guidance_scale: 5.0
+  width: 512
+  height: 512
+  seeds:
+  - 43
+paths:
+  prompts_file: /mnt/c/Users/lucac/Documents/GitHub/SynthSE/outputs/isolated_tmp/isolated_20260720_032300_wl0cbbkt/P001_w512_h512_seed43_prompt.csv
+  output_images_dir: outputs/images
+  output_logs_dir: outputs/logs
+run:
+  max_prompts: 1
