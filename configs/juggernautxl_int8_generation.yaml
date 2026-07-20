@@ -1,0 +1,24 @@
+project:
+  name: SynthSE
+
+model:
+  name: juggernautxl
+  huggingface_id: RunDiffusion/Juggernaut-XL-v9
+  device: cuda
+  quantization: int8
+
+generation:
+  num_inference_steps: 15
+  guidance_scale: 5.0
+
+  width: 512
+  height: 512
+  seeds: [42, 43, 44, 45, 46, 47]
+
+paths:
+  prompts_file: data/prompts/prompts.csv
+  output_images_dir: outputs/images
+  output_logs_dir: outputs/logs
+
+run:
+  max_prompts: 6
