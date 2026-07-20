@@ -1,19 +1,17 @@
 project:
-  name: "SynthSE"
-  description: "Local text-to-image generation pipeline for Software Engineering scenarios"
+  name: SynthSE
 
 model:
-  name: "stable-diffusion"
-  huggingface_id: "runwayml/stable-diffusion-v1-5"
-  device: "cuda"
+  name: stable-diffusion
+  huggingface_id: runwayml/stable-diffusion-v1-5
+  device: cuda
 
 generation:
-  num_images_per_prompt: 3
-  num_inference_steps: 30
+  num_inference_steps: 20
   guidance_scale: 7.5
   width: 512
   height: 512
-  seeds: [42, 43, 44]
+  seeds: [42, 43, 44, 45, 46, 47]
 
 
 paths:
@@ -21,3 +19,7 @@ paths:
   output_images_dir: "outputs/images"
   output_logs_dir: "outputs/logs"
   output_results_dir: "outputs/results"
+  
+
+run:
+  max_prompts: 6
