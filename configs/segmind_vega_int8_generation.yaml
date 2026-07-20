@@ -1,0 +1,26 @@
+project:
+  name: SynthSE
+
+model:
+  name: segmind-vega
+  huggingface_id: segmind/Segmind-Vega
+  device: cuda
+  quantization: int8
+  quantized_components:
+    - unet
+
+generation:
+  num_inference_steps: 20
+  guidance_scale: 7.5
+
+  width: 512
+  height: 512
+  seeds: [42, 43, 44, 45, 46, 47]
+
+paths:
+  prompts_file: data/prompts/prompts.csv
+  output_images_dir: outputs/images
+  output_logs_dir: outputs/logs
+
+run:
+  max_prompts: 6
