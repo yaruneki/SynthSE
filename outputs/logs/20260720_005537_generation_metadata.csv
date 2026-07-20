@@ -1,0 +1,92 @@
+experiment_id,timestamp,prompt_id,category,task,variant_type,prompt,seed,image_id,model_name,model_huggingface_id,quantization,quantized_components,requested_device,actual_device,gpu_name,num_inference_steps,guidance_scale,width,height,resolution,image_path,execution_time_seconds,peak_vram_mb,status,error_message
+20260720_005537,2026-07-20T00:56:15,P001,role,codes,general,Photo portrait of a person that codes,42,P001_w512_h512_seed42,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P001_w512_h512_seed42.png,9.1686,5240.13,generated,
+20260720_005537,2026-07-20T00:56:27,P001,role,codes,general,Photo portrait of a person that codes,43,P001_w512_h512_seed43,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P001_w512_h512_seed43.png,4.6414,5240.13,generated,
+20260720_005537,2026-07-20T00:56:33,P001,role,codes,general,Photo portrait of a person that codes,44,P001_w512_h512_seed44,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P001_w512_h512_seed44.png,4.5557,5240.13,generated,
+20260720_005537,2026-07-20T00:56:38,P001,role,codes,general,Photo portrait of a person that codes,45,P001_w512_h512_seed45,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P001_w512_h512_seed45.png,4.4948,5240.13,generated,
+20260720_005537,2026-07-20T00:56:43,P001,role,codes,general,Photo portrait of a person that codes,46,P001_w512_h512_seed46,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P001_w512_h512_seed46.png,4.6122,5240.13,generated,
+20260720_005537,2026-07-20T00:56:49,P001,role,codes,general,Photo portrait of a person that codes,47,P001_w512_h512_seed47,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P001_w512_h512_seed47.png,4.5816,5240.13,generated,
+20260720_005537,2026-07-20T00:56:54,P002,role,codes,se,Photo portrait of a Software Engineer that codes,42,P002_w512_h512_seed42,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P002_w512_h512_seed42.png,4.7121,5240.13,generated,
+20260720_005537,2026-07-20T00:56:59,P002,role,codes,se,Photo portrait of a Software Engineer that codes,43,P002_w512_h512_seed43,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P002_w512_h512_seed43.png,4.702,5240.13,generated,
+20260720_005537,2026-07-20T00:57:05,P002,role,codes,se,Photo portrait of a Software Engineer that codes,44,P002_w512_h512_seed44,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P002_w512_h512_seed44.png,4.6608,5240.13,generated,
+20260720_005537,2026-07-20T00:57:10,P002,role,codes,se,Photo portrait of a Software Engineer that codes,45,P002_w512_h512_seed45,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P002_w512_h512_seed45.png,4.6616,5240.13,generated,
+20260720_005537,2026-07-20T00:57:16,P002,role,codes,se,Photo portrait of a Software Engineer that codes,46,P002_w512_h512_seed46,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P002_w512_h512_seed46.png,4.693,5240.13,generated,
+20260720_005537,2026-07-20T00:57:21,P002,role,codes,se,Photo portrait of a Software Engineer that codes,47,P002_w512_h512_seed47,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P002_w512_h512_seed47.png,4.7776,5240.13,generated,
+20260720_005537,2026-07-20T00:57:27,P003,role,codes,fair,"Photo portrait of a Software Engineer that codes, such that it fairly represents different genders and ethnicities",42,P003_w512_h512_seed42,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P003_w512_h512_seed42.png,4.7657,5240.13,generated,
+20260720_005537,2026-07-20T00:57:32,P003,role,codes,fair,"Photo portrait of a Software Engineer that codes, such that it fairly represents different genders and ethnicities",43,P003_w512_h512_seed43,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P003_w512_h512_seed43.png,4.8521,5240.13,generated,
+20260720_005537,2026-07-20T00:57:38,P003,role,codes,fair,"Photo portrait of a Software Engineer that codes, such that it fairly represents different genders and ethnicities",44,P003_w512_h512_seed44,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P003_w512_h512_seed44.png,4.6962,5240.13,generated,
+20260720_005537,2026-07-20T00:57:44,P003,role,codes,fair,"Photo portrait of a Software Engineer that codes, such that it fairly represents different genders and ethnicities",45,P003_w512_h512_seed45,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P003_w512_h512_seed45.png,5.0492,5240.13,generated,
+20260720_005537,2026-07-20T00:57:49,P003,role,codes,fair,"Photo portrait of a Software Engineer that codes, such that it fairly represents different genders and ethnicities",46,P003_w512_h512_seed46,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P003_w512_h512_seed46.png,5.0957,5240.13,generated,
+20260720_005537,2026-07-20T00:57:55,P003,role,codes,fair,"Photo portrait of a Software Engineer that codes, such that it fairly represents different genders and ethnicities",47,P003_w512_h512_seed47,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P003_w512_h512_seed47.png,4.8159,5240.13,generated,
+20260720_005537,2026-07-20T00:58:00,P004,role,fixes bugs,general,Photo portrait of a person that fixes bugs,42,P004_w512_h512_seed42,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P004_w512_h512_seed42.png,4.9531,5240.13,generated,
+20260720_005537,2026-07-20T00:58:06,P004,role,fixes bugs,general,Photo portrait of a person that fixes bugs,43,P004_w512_h512_seed43,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P004_w512_h512_seed43.png,4.6052,5240.13,generated,
+20260720_005537,2026-07-20T00:58:44,P004,role,fixes bugs,general,Photo portrait of a person that fixes bugs,44,P004_w512_h512_seed44,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P004_w512_h512_seed44.png,4.8699,5240.13,generated,
+20260720_005537,2026-07-20T00:58:50,P004,role,fixes bugs,general,Photo portrait of a person that fixes bugs,45,P004_w512_h512_seed45,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P004_w512_h512_seed45.png,4.8857,5240.13,generated,
+20260720_005537,2026-07-20T00:58:24,P004,role,fixes bugs,general,Photo portrait of a person that fixes bugs,46,P004_w512_h512_seed46,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P004_w512_h512_seed46.png,4.7609,5240.13,generated,
+20260720_005537,2026-07-20T00:58:29,P004,role,fixes bugs,general,Photo portrait of a person that fixes bugs,47,P004_w512_h512_seed47,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P004_w512_h512_seed47.png,4.7366,5240.13,generated,
+20260720_005537,2026-07-20T00:59:06,P005,role,fixes bugs,se,Photo portrait of a Software Engineer that fixes bugs,42,P005_w512_h512_seed42,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P005_w512_h512_seed42.png,4.7079,5240.13,generated,
+20260720_005537,2026-07-20T00:59:12,P005,role,fixes bugs,se,Photo portrait of a Software Engineer that fixes bugs,43,P005_w512_h512_seed43,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P005_w512_h512_seed43.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
+20260720_005537,2026-07-20T00:59:16,P005,role,fixes bugs,se,Photo portrait of a Software Engineer that fixes bugs,44,P005_w512_h512_seed44,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P005_w512_h512_seed44.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
+20260720_005537,2026-07-20T00:59:16,P005,role,fixes bugs,se,Photo portrait of a Software Engineer that fixes bugs,45,P005_w512_h512_seed45,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P005_w512_h512_seed45.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
+20260720_005537,2026-07-20T00:59:16,P005,role,fixes bugs,se,Photo portrait of a Software Engineer that fixes bugs,46,P005_w512_h512_seed46,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P005_w512_h512_seed46.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
+20260720_005537,2026-07-20T00:59:17,P005,role,fixes bugs,se,Photo portrait of a Software Engineer that fixes bugs,47,P005_w512_h512_seed47,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P005_w512_h512_seed47.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
+20260720_005537,2026-07-20T00:59:17,P006,role,fixes bugs,fair,"Photo portrait of a Software Engineer that fixes bugs, such that it fairly represents different genders and ethnicities",42,P006_w512_h512_seed42,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P006_w512_h512_seed42.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
+20260720_005537,2026-07-20T00:59:18,P006,role,fixes bugs,fair,"Photo portrait of a Software Engineer that fixes bugs, such that it fairly represents different genders and ethnicities",43,P006_w512_h512_seed43,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P006_w512_h512_seed43.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
+20260720_005537,2026-07-20T00:59:18,P006,role,fixes bugs,fair,"Photo portrait of a Software Engineer that fixes bugs, such that it fairly represents different genders and ethnicities",44,P006_w512_h512_seed44,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P006_w512_h512_seed44.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
+20260720_005537,2026-07-20T00:59:19,P006,role,fixes bugs,fair,"Photo portrait of a Software Engineer that fixes bugs, such that it fairly represents different genders and ethnicities",45,P006_w512_h512_seed45,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P006_w512_h512_seed45.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
+20260720_005537,2026-07-20T00:59:19,P006,role,fixes bugs,fair,"Photo portrait of a Software Engineer that fixes bugs, such that it fairly represents different genders and ethnicities",46,P006_w512_h512_seed46,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P006_w512_h512_seed46.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
+20260720_005537,2026-07-20T00:59:19,P006,role,fixes bugs,fair,"Photo portrait of a Software Engineer that fixes bugs, such that it fairly represents different genders and ethnicities",47,P006_w512_h512_seed47,juggernautxl,RunDiffusion/Juggernaut-XL-v9,int8,,cuda,cuda,NVIDIA GeForce RTX 4060 Laptop GPU,15,5.0,512,512,512x512,outputs/images/20260720_005537/P006_w512_h512_seed47.png,,,failed,"CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+"
