@@ -15,10 +15,7 @@ venv/
 #outputs/images/*
 #outputs/logs/*
 #outputs/results/*
-
-!outputs/images/.gitkeep
-!outputs/logs/.gitkeep
-!outputs/results/.gitkeep
+isolated_tmp/*
 
 # Model files
 models/
