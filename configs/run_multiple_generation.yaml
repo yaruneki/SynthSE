@@ -22,4 +22,4 @@ paths:
   output_results_dir: "outputs/results"
 
 run:
-  max_prompts: 6
+  max_prompts: 10

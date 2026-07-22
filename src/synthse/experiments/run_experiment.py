@@ -54,16 +54,67 @@ def as_list(value: Any) -> list:
     return [value]
 
 
+def build_seeds(config: dict) -> list[int]:
+    """
+    Build the configured seed list.
+
+    In this experiment, each configured seed is expanded into
+    num_images_per_prompt repeated generations.
+    """
+    generation_config = config["generation"]
+
+    if "seeds" not in generation_config:
+        raise ValueError(
+            "generation.seeds is required for run-multiple generation."
+        )
+
+    seeds = [
+        int(seed)
+        for seed in as_list(generation_config["seeds"])
+    ]
+
+    if not seeds:
+        raise ValueError(
+            "generation.seeds must contain at least one seed."
+        )
+
+    return seeds
+
+
+def get_num_images_per_prompt(config: dict) -> int:
+    """
+    Return how many images must be generated for each prompt and seed.
+    """
+    generation_config = config["generation"]
+
+    num_images_per_prompt = int(
+        generation_config.get("num_images_per_prompt", 1)
+    )
+
+    if num_images_per_prompt <= 0:
+        raise ValueError(
+            "generation.num_images_per_prompt must be > 0."
+        )
+
+    return num_images_per_prompt
+
+
+def build_effective_seed(
+    configured_seed: int,
+    image_repeat_index: int,
+) -> int:
+    """
+    Build the actual seed used for image generation.
+
+    This avoids generating identical images when num_images_per_prompt
+    is greater than 1 for the same configured seed.
+    """
+    return configured_seed * 100000 + image_repeat_index
+
+
 def build_resolution_pairs(config: dict) -> list[tuple[int, int]]:
     """
     Build all width-height combinations from the config.
-
-    Example:
-        width: [256, 512]
-        height: [256, 512]
-
-    produces:
-        [(256, 256), (256, 512), (512, 256), (512, 512)]
     """
     widths = [
         int(width)
@@ -85,11 +136,9 @@ def build_resolution_pairs(config: dict) -> list[tuple[int, int]]:
 def validate_generation_config(config: dict) -> None:
     """
     Validate basic generation constraints.
-
-    Width and height can be either scalar values or lists.
-    All values must be positive integers divisible by 8.
     """
     required_generation_keys = {
+        "num_images_per_prompt",
         "num_inference_steps",
         "guidance_scale",
         "width",
@@ -108,11 +157,8 @@ def validate_generation_config(config: dict) -> None:
         )
 
     resolution_pairs = build_resolution_pairs(config)
-
-    seeds = [
-        int(seed)
-        for seed in as_list(config["generation"]["seeds"])
-    ]
+    seeds = build_seeds(config)
+    num_images_per_prompt = get_num_images_per_prompt(config)
 
     if not resolution_pairs:
         raise ValueError(
@@ -121,7 +167,12 @@ def validate_generation_config(config: dict) -> None:
 
     if not seeds:
         raise ValueError(
-            "generation.seeds must contain at least one seed."
+            "At least one seed is required."
+        )
+
+    if num_images_per_prompt <= 0:
+        raise ValueError(
+            "generation.num_images_per_prompt must be > 0."
         )
 
     for width, height in resolution_pairs:
@@ -205,7 +256,9 @@ def build_image_filename(
     prompt_id: Any,
     width: int,
     height: int,
-    seed: int,
+    configured_seed: int,
+    image_repeat_index: int,
+    effective_seed: int,
 ) -> str:
     """
     Build a unique filename for each generated image.
@@ -214,7 +267,10 @@ def build_image_filename(
 
     return (
         f"{safe_prompt_id}_"
-        f"w{width}_h{height}_seed{seed}.png"
+        f"w{width}_h{height}_"
+        f"seed{configured_seed}_"
+        f"img{image_repeat_index:02d}_"
+        f"effseed{effective_seed}.png"
     )
 
 
@@ -222,7 +278,9 @@ def build_run_id(
     prompt_id: Any,
     width: int,
     height: int,
-    seed: int,
+    configured_seed: int,
+    image_repeat_index: int,
+    effective_seed: int,
 ) -> str:
     """
     Build a stable run identifier for robustness analysis.
@@ -231,14 +289,20 @@ def build_run_id(
 
     return (
         f"{safe_prompt_id}_"
-        f"w{width}_h{height}_seed{seed}"
+        f"w{width}_h{height}_"
+        f"seed{configured_seed}_"
+        f"img{image_repeat_index:02d}_"
+        f"effseed{effective_seed}"
     )
 
 
 def build_base_record(
     config: dict,
     row: pd.Series,
-    seed: int,
+    configured_seed: int,
+    effective_seed: int,
+    seed_index: int,
+    image_repeat_index: int,
     run_index: int,
     total_runs_for_prompt: int,
     experiment_id: str,
@@ -250,8 +314,8 @@ def build_base_record(
     """
     Build the base metadata record for a generation.
 
-    In the run-multiple robustness setting, each seed corresponds to a
-    different run for the same prompt and resolution.
+    In this setting, each prompt is generated multiple times for each
+    configured seed.
     """
     quantization = config["model"].get(
         "quantization",
@@ -262,7 +326,9 @@ def build_base_record(
         prompt_id=row["prompt_id"],
         width=width,
         height=height,
-        seed=seed,
+        configured_seed=configured_seed,
+        image_repeat_index=image_repeat_index,
+        effective_seed=effective_seed,
     )
 
     return {
@@ -278,9 +344,14 @@ def build_base_record(
         "prompt": row["prompt"],
 
         # Run-multiple robustness metadata
-        "seed": seed,
+        "configured_seed": configured_seed,
+        "effective_seed": effective_seed,
+        "seed": effective_seed,
+        "seed_index": seed_index,
+        "image_repeat_index": image_repeat_index,
         "run_index": run_index,
         "total_runs_for_prompt": total_runs_for_prompt,
+        "num_images_per_prompt": get_num_images_per_prompt(config),
         "run_id": run_id,
         "robustness_axis": "multiple_runs",
 
@@ -416,13 +487,8 @@ def main() -> None:
         "%Y%m%d_%H%M%S"
     )
 
-    seeds = [
-        int(seed)
-        for seed in as_list(
-            config["generation"]["seeds"]
-        )
-    ]
-
+    seeds = build_seeds(config)
+    num_images_per_prompt = get_num_images_per_prompt(config)
     resolution_pairs = build_resolution_pairs(config)
 
     num_inference_steps = int(
@@ -462,9 +528,15 @@ def main() -> None:
         exist_ok=True,
     )
 
+    total_runs_per_prompt = (
+        len(seeds)
+        * num_images_per_prompt
+    )
+
     total_generations = (
         len(prompts)
         * len(seeds)
+        * num_images_per_prompt
         * len(resolution_pairs)
     )
 
@@ -483,6 +555,14 @@ def main() -> None:
     )
     print(f"Prompts loaded: {len(prompts)}")
     print(f"Seeds: {seeds}")
+    print(
+        f"Images per prompt per seed: "
+        f"{num_images_per_prompt}"
+    )
+    print(
+        f"Runs per prompt per resolution: "
+        f"{total_runs_per_prompt}"
+    )
     print(
         f"Resolution pairs: {resolution_pairs}"
     )
@@ -521,77 +601,100 @@ def main() -> None:
     ) as progress_bar:
         for _, row in prompts.iterrows():
             for width, height in resolution_pairs:
-                for run_index, seed in enumerate(seeds, start=1):
-                    image_filename = build_image_filename(
-                        prompt_id=row["prompt_id"],
-                        width=width,
-                        height=height,
-                        seed=seed,
-                    )
-
-                    image_id = image_filename.removesuffix(
-                        ".png"
-                    )
-
-                    image_path = (
-                        output_images_dir
-                        / image_filename
-                    )
-
-                    base_record = build_base_record(
-                        config=config,
-                        row=row,
-                        seed=seed,
-                        run_index=run_index,
-                        total_runs_for_prompt=len(seeds),
-                        experiment_id=experiment_id,
-                        image_id=image_id,
-                        actual_device=actual_device,
-                        width=width,
-                        height=height,
-                    )
-
-                    try:
-                        generation_result = generate_image(
-                            pipeline=pipeline,
-                            prompt=row["prompt"],
-                            seed=seed,
-                            output_path=str(image_path),
-                            num_inference_steps=(
-                                num_inference_steps
-                            ),
-                            guidance_scale=(
-                                guidance_scale
-                            ),
-                            width=width,
-                            height=height,
-                            device=actual_device,
+                for seed_index, configured_seed in enumerate(
+                    seeds,
+                    start=1,
+                ):
+                    for image_repeat_index in range(
+                        1,
+                        num_images_per_prompt + 1,
+                    ):
+                        run_index = (
+                            (seed_index - 1)
+                            * num_images_per_prompt
+                            + image_repeat_index
                         )
 
-                        record = {
-                            **base_record,
-                            **generation_result,
-                        }
+                        effective_seed = build_effective_seed(
+                            configured_seed=configured_seed,
+                            image_repeat_index=image_repeat_index,
+                        )
 
-                    except Exception as error:
-                        record = {
-                            **base_record,
-                            "image_path": str(
-                                image_path
-                            ),
-                            "execution_time_seconds": None,
-                            "peak_vram_mb": None,
-                            "status": "failed",
-                            "error_message": str(error),
-                        }
+                        image_filename = build_image_filename(
+                            prompt_id=row["prompt_id"],
+                            width=width,
+                            height=height,
+                            configured_seed=configured_seed,
+                            image_repeat_index=image_repeat_index,
+                            effective_seed=effective_seed,
+                        )
 
-                    metadata_records.append(record)
-                    progress_bar.update(1)
+                        image_id = image_filename.removesuffix(
+                            ".png"
+                        )
 
-                    clear_runtime_memory(
-                        actual_device=actual_device,
-                        quantization=quantization,
-                    )
+                        image_path = (
+                            output_images_dir
+                            / image_filename
+                        )
+
+                        base_record = build_base_record(
+                            config=config,
+                            row=row,
+                            configured_seed=configured_seed,
+                            effective_seed=effective_seed,
+                            seed_index=seed_index,
+                            image_repeat_index=image_repeat_index,
+                            run_index=run_index,
+                            total_runs_for_prompt=total_runs_per_prompt,
+                            experiment_id=experiment_id,
+                            image_id=image_id,
+                            actual_device=actual_device,
+                            width=width,
+                            height=height,
+                        )
+
+                        try:
+                            generation_result = generate_image(
+                                pipeline=pipeline,
+                                prompt=row["prompt"],
+                                seed=effective_seed,
+                                output_path=str(image_path),
+                                num_inference_steps=(
+                                    num_inference_steps
+                                ),
+                                guidance_scale=(
+                                    guidance_scale
+                                ),
+                                width=width,
+                                height=height,
+                                device=actual_device,
+                            )
+
+                            record = {
+                                **base_record,
+                                **generation_result,
+                            }
+
+                        except Exception as error:
+                            record = {
+                                **base_record,
+                                "image_path": str(
+                                    image_path
+                                ),
+                                "execution_time_seconds": None,
+                                "peak_vram_mb": None,
+                                "status": "failed",
+                                "error_message": str(error),
+                            }
+
+                        metadata_records.append(record)
+                        progress_bar.update(1)
+
+                        clear_runtime_memory(
+                            actual_device=actual_device,
+                            quantization=quantization,
+                        )
 
     metadata_path = (
         output_logs_dir
