@@ -18,15 +18,190 @@ import yaml
 STATE_FILE = "session_state.yaml"
 PROCESS_FILE = "process_records.csv"
 PARTIAL_METADATA_FILE = "consolidated_metadata.csv"
+PARTIAL_MODEL_LOAD_FILE = "consolidated_model_load_resources.csv"
 
 
 def as_list(value: Any) -> list[Any]:
-    return value if isinstance(value, list) else [value]
+    """Normalize a scalar or sequence into a list."""
+    if isinstance(value, (list, tuple)):
+        return list(value)
+
+    return [value]
 
 
 def sanitize_filename(value: Any) -> str:
+    """Convert a value into a filesystem-safe component."""
     text = re.sub(r"[^A-Za-z0-9_.-]+", "_", str(value))
     return text.strip("_") or "item"
+
+
+def normalize_quantization(value: Any) -> str:
+    """Normalize the configured quantization mode."""
+    if value is None:
+        return "none"
+
+    normalized = str(value).strip().lower()
+
+    if normalized in {"", "none", "null", "false", "no", "off"}:
+        return "none"
+
+    return normalized
+
+
+def normalize_quantized_components(value: Any) -> list[str]:
+    """Normalize the configured quantized pipeline components."""
+    if value is None:
+        return []
+
+    if isinstance(value, str):
+        components = [
+            component.strip().lower()
+            for component in value.split(",")
+            if component.strip()
+        ]
+    elif isinstance(value, (list, tuple, set)):
+        components = [
+            str(component).strip().lower()
+            for component in value
+            if str(component).strip()
+        ]
+    else:
+        raise ValueError(
+            "model.quantized_components must be a string "
+            "or a list of strings."
+        )
+
+    return list(dict.fromkeys(components))
+
+
+def validate_base_config(config: dict[str, Any]) -> None:
+    """
+    Validate the configuration before launching isolated subprocesses.
+
+    This catches configuration errors once, before repeatedly loading
+    the same model in separate child processes.
+    """
+    required_sections = {
+        "model",
+        "generation",
+        "paths",
+    }
+
+    missing_sections = required_sections - set(config)
+
+    if missing_sections:
+        raise ValueError(
+            "Missing configuration sections: "
+            f"{sorted(missing_sections)}"
+        )
+
+    required_model_keys = {
+        "name",
+        "huggingface_id",
+        "device",
+    }
+
+    missing_model_keys = required_model_keys - set(config["model"])
+
+    if missing_model_keys:
+        raise ValueError(
+            "Missing model config keys: "
+            f"{sorted(missing_model_keys)}"
+        )
+
+    required_generation_keys = {
+        "num_inference_steps",
+        "guidance_scale",
+        "width",
+        "height",
+        "seeds",
+    }
+
+    missing_generation_keys = (
+        required_generation_keys
+        - set(config["generation"])
+    )
+
+    if missing_generation_keys:
+        raise ValueError(
+            "Missing generation config keys: "
+            f"{sorted(missing_generation_keys)}"
+        )
+
+    required_path_keys = {
+        "prompts_file",
+        "output_images_dir",
+        "output_logs_dir",
+    }
+
+    missing_path_keys = required_path_keys - set(config["paths"])
+
+    if missing_path_keys:
+        raise ValueError(
+            "Missing path config keys: "
+            f"{sorted(missing_path_keys)}"
+        )
+
+    seeds = [
+        int(value)
+        for value in as_list(config["generation"]["seeds"])
+    ]
+    widths = [
+        int(value)
+        for value in as_list(config["generation"]["width"])
+    ]
+    heights = [
+        int(value)
+        for value in as_list(config["generation"]["height"])
+    ]
+
+    if not seeds:
+        raise ValueError(
+            "generation.seeds must contain at least one seed."
+        )
+
+    if not widths or not heights:
+        raise ValueError(
+            "At least one width and one height are required."
+        )
+
+    for width in widths:
+        if width <= 0 or width % 8 != 0:
+            raise ValueError(
+                "Every image width must be positive and divisible by 8. "
+                f"Invalid width: {width}"
+            )
+
+    for height in heights:
+        if height <= 0 or height % 8 != 0:
+            raise ValueError(
+                "Every image height must be positive and divisible by 8. "
+                f"Invalid height: {height}"
+            )
+
+    if int(config["generation"]["num_inference_steps"]) <= 0:
+        raise ValueError(
+            "generation.num_inference_steps must be greater than zero."
+        )
+
+    if float(config["generation"]["guidance_scale"]) < 0:
+        raise ValueError(
+            "generation.guidance_scale must be greater than or equal to zero."
+        )
+
+    quantization = normalize_quantization(
+        config["model"].get("quantization")
+    )
+    quantized_components = normalize_quantized_components(
+        config["model"].get("quantized_components")
+    )
+
+    if quantization != "none" and not quantized_components:
+        raise ValueError(
+            "Quantization is enabled, but model.quantized_components "
+            "is empty. For the current INT8 pipeline, configure for "
+            "example: quantized_components: [unet]."
+        )
 
 
 def load_yaml(path: Path) -> dict[str, Any]:
@@ -159,7 +334,14 @@ def build_single_generation_config(
     config["generation"]["seeds"] = [seed]
     config["generation"]["width"] = width
     config["generation"]["height"] = height
-    config.setdefault("run", {})["max_prompts"] = 1
+
+    run_config = config.setdefault("run", {})
+    run_config["max_prompts"] = 1
+
+    # Every retry must create fresh child output files. Reusing an explicit
+    # experiment ID could overwrite files and prevent new-file detection.
+    run_config.pop("experiment_id", None)
+
     return config
 
 
@@ -170,6 +352,14 @@ def run_single_generation(
     environment = os.environ.copy()
     environment["HF_HUB_DISABLE_IMPLICIT_TOKEN"] = "1"
     environment["PYTHONUNBUFFERED"] = "1"
+
+    source_path = str(project_root / "src")
+    existing_pythonpath = environment.get("PYTHONPATH", "")
+    environment["PYTHONPATH"] = (
+        source_path
+        if not existing_pythonpath
+        else os.pathsep.join([source_path, existing_pythonpath])
+    )
 
     return subprocess.run(
         [
@@ -185,17 +375,44 @@ def run_single_generation(
     )
 
 
-def find_new_metadata_file(
+def find_new_output_file(
     logs_dir: Path,
+    pattern: str,
     files_before: set[Path],
 ) -> Path | None:
-    files_after = set(logs_dir.glob("*_generation_metadata.csv"))
+    """Return the newest output file created by one child process."""
+    files_after = set(logs_dir.glob(pattern))
     new_files = files_after - files_before
 
     if not new_files:
         return None
 
-    return max(new_files, key=lambda path: path.stat().st_mtime)
+    return max(
+        new_files,
+        key=lambda path: path.stat().st_mtime,
+    )
+
+
+def find_new_metadata_file(
+    logs_dir: Path,
+    files_before: set[Path],
+) -> Path | None:
+    return find_new_output_file(
+        logs_dir=logs_dir,
+        pattern="*_generation_metadata.csv",
+        files_before=files_before,
+    )
+
+
+def find_new_model_load_file(
+    logs_dir: Path,
+    files_before: set[Path],
+) -> Path | None:
+    return find_new_output_file(
+        logs_dir=logs_dir,
+        pattern="*_model_load_resources.csv",
+        files_before=files_before,
+    )
 
 
 def resolve_metadata_image_path(
@@ -245,6 +462,103 @@ def consolidate_metadata_and_images(
         rows.append(record)
 
     return pd.DataFrame(rows)
+
+
+def consolidate_model_load_resources(
+    model_load_file: Path,
+    batch_id: str,
+    combination: dict[str, Any],
+) -> pd.DataFrame:
+    """
+    Add isolated-generation context to one child model-load CSV.
+
+    Each child process loads the model once, so each resulting row is
+    associated with exactly one prompt/seed/resolution combination.
+    """
+    dataframe = pd.read_csv(model_load_file)
+
+    if dataframe.empty:
+        return dataframe
+
+    prompt_row = combination["prompt_row"]
+
+    dataframe["source_experiment_id"] = dataframe.get(
+        "experiment_id",
+        "",
+    )
+    dataframe["experiment_id"] = batch_id
+    dataframe["process_index"] = combination["position"]
+    dataframe["generation_label"] = combination["label"]
+    dataframe["prompt_id"] = prompt_row.get("prompt_id", "")
+    dataframe["task_id"] = prompt_row.get("task_id", "")
+    dataframe["seed"] = combination["seed"]
+    dataframe["width"] = combination["width"]
+    dataframe["height"] = combination["height"]
+    dataframe["resolution"] = (
+        f"{combination['width']}x{combination['height']}"
+    )
+
+    return dataframe
+
+
+def model_load_key(row: pd.Series) -> str:
+    """Return the unique key for one isolated model-load measurement."""
+    generation_label = row.get("generation_label", "")
+
+    if pd.notna(generation_label) and str(generation_label).strip():
+        return str(generation_label)
+
+    return "|".join(
+        [
+            str(row.get("prompt_id", "")),
+            str(row.get("width", "")),
+            str(row.get("height", "")),
+            str(row.get("seed", "")),
+        ]
+    )
+
+
+def upsert_model_load_resources(
+    new_rows: pd.DataFrame,
+    path: Path,
+) -> None:
+    """Insert or replace model-load measurements by generation label."""
+    if new_rows.empty:
+        return
+
+    existing = load_dataframe(path)
+    columns = list(
+        dict.fromkeys(
+            existing.columns.tolist()
+            + new_rows.columns.tolist()
+        )
+    )
+
+    existing = existing.reindex(columns=columns)
+    new_rows = new_rows.reindex(columns=columns)
+
+    new_keys = set(
+        new_rows.apply(
+            model_load_key,
+            axis=1,
+        )
+    )
+
+    if not existing.empty:
+        existing = existing[
+            ~existing.apply(
+                model_load_key,
+                axis=1,
+            ).isin(new_keys)
+        ]
+
+    pd.concat(
+        [existing, new_rows],
+        ignore_index=True,
+    ).to_csv(
+        path,
+        index=False,
+    )
 
 
 def load_dataframe(path: Path) -> pd.DataFrame:
@@ -507,7 +821,38 @@ def recovered_metadata_row(
             f"{combination['width']}x{combination['height']}"
         ),
         "image_path": image_path.relative_to(project_root).as_posix(),
+        "model_load_seconds": None,
         "execution_time_seconds": None,
+        "inference_seconds": None,
+        "image_save_seconds": None,
+        "generation_total_seconds": None,
+        "gpu_energy_j": None,
+        "gpu_energy_wh": None,
+        "gpu_energy_measurement_method": "unavailable",
+        "gpu_power_mean_w": None,
+        "gpu_power_max_w": None,
+        "gpu_utilization_mean_percent": None,
+        "gpu_utilization_max_percent": None,
+        "gpu_temperature_start_c": None,
+        "gpu_temperature_max_c": None,
+        "gpu_temperature_end_c": None,
+        "gpu_power_limit_w": None,
+        "torch_peak_allocated_vram_mb": None,
+        "torch_peak_reserved_vram_mb": None,
+        "nvml_peak_used_vram_mb": None,
+        "process_cpu_mean_percent": None,
+        "process_cpu_max_percent": None,
+        "process_cpu_user_seconds": None,
+        "process_cpu_system_seconds": None,
+        "process_rss_start_mb": None,
+        "process_rss_peak_mb": None,
+        "process_rss_end_mb": None,
+        "system_ram_used_start_mb": None,
+        "system_ram_used_peak_mb": None,
+        "system_ram_used_end_mb": None,
+        "joules_per_image": None,
+        "wh_per_image": None,
+        "images_per_hour": None,
         "peak_vram_mb": None,
         "status": "generated",
         "error_message": "",
@@ -603,6 +948,7 @@ def main() -> None:
     project_root = resolve_project_root(config_path)
     config_path = config_path.resolve()
     base_config = load_yaml(config_path)
+    validate_base_config(base_config)
     prompts = load_prompts(project_root, base_config)
     combinations = build_combinations(prompts, base_config)
     expected_labels = {item["label"] for item in combinations}
@@ -668,8 +1014,20 @@ def main() -> None:
 
     process_path = session_dir / PROCESS_FILE
     partial_metadata_path = session_dir / PARTIAL_METADATA_FILE
-    final_metadata_path = logs_dir / f"{batch_id}_generation_metadata.csv"
-    summary_path = logs_dir / f"{batch_id}_isolated_process_summary.csv"
+    partial_model_load_path = session_dir / PARTIAL_MODEL_LOAD_FILE
+
+    final_metadata_path = (
+        logs_dir
+        / f"{batch_id}_generation_metadata.csv"
+    )
+    final_model_load_path = (
+        logs_dir
+        / f"{batch_id}_model_load_resources.csv"
+    )
+    summary_path = (
+        logs_dir
+        / f"{batch_id}_isolated_process_summary.csv"
+    )
 
     state_path = session_dir / STATE_FILE
 
@@ -721,6 +1079,10 @@ def main() -> None:
     print(f"Unified experiment ID: {batch_id}")
     print(f"Unified images directory: {unified_images_dir}")
     print(f"Session directory: {session_dir}")
+    print(
+        "Monitoring enabled: "
+        f"{bool(base_config.get('monitoring', {}).get('enabled', False))}"
+    )
 
     if resumed:
         print("Resume mode enabled.")
@@ -774,17 +1136,28 @@ def main() -> None:
             metadata_before = set(
                 logs_dir.glob("*_generation_metadata.csv")
             )
+            model_load_before = set(
+                logs_dir.glob("*_model_load_resources.csv")
+            )
+
             result = run_single_generation(
                 project_root,
                 single_config_path,
             )
+
             metadata_file = find_new_metadata_file(
                 logs_dir,
                 metadata_before,
             )
+            model_load_file = find_new_model_load_file(
+                logs_dir,
+                model_load_before,
+            )
 
             metadata_frame = pd.DataFrame()
+            model_load_frame = pd.DataFrame()
             source_metadata_file = ""
+            source_model_load_file = ""
 
             if metadata_file is not None and metadata_file.exists():
                 metadata_frame = consolidate_metadata_and_images(
@@ -801,6 +1174,23 @@ def main() -> None:
 
                 try:
                     metadata_file.unlink()
+                except OSError:
+                    pass
+
+            if model_load_file is not None and model_load_file.exists():
+                model_load_frame = consolidate_model_load_resources(
+                    model_load_file=model_load_file,
+                    batch_id=batch_id,
+                    combination=item,
+                )
+                upsert_model_load_resources(
+                    model_load_frame,
+                    partial_model_load_path,
+                )
+                source_model_load_file = str(model_load_file)
+
+                try:
+                    model_load_file.unlink()
                 except OSError:
                     pass
 
@@ -830,6 +1220,7 @@ def main() -> None:
                     "status": "completed" if success else "failed",
                     "return_code": result.returncode,
                     "source_metadata_file": source_metadata_file,
+                    "source_model_load_file": source_model_load_file,
                 },
             )
             save_process_records(process_records, process_path)
@@ -875,7 +1266,21 @@ def main() -> None:
         final_metadata_path,
         index=False,
     )
-    save_process_records(process_records, summary_path)
+
+    model_load_dataframe = load_dataframe(
+        partial_model_load_path
+    )
+
+    if not model_load_dataframe.empty:
+        model_load_dataframe.to_csv(
+            final_model_load_path,
+            index=False,
+        )
+
+    save_process_records(
+        process_records,
+        summary_path,
+    )
 
     print()
     print("Isolated experiment finished.")
@@ -883,6 +1288,13 @@ def main() -> None:
     print(f"Failed generation records: {failed_count}")
     print(f"Unified images directory: {unified_images_dir}")
     print(f"Unified metadata CSV: {final_metadata_path}")
+
+    if final_model_load_path.exists():
+        print(
+            "Unified model-load resources CSV: "
+            f"{final_model_load_path}"
+        )
+
     print(f"Process summary: {summary_path}")
     print(f"Session state: {state_path}")
 

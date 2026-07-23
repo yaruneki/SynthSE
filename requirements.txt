@@ -10,3 +10,5 @@ tqdm
 pillow
 psutil
 torchao
+psutil
+nvidia-ml-py

@@ -16,6 +16,13 @@ generation:
   height: 512
   seeds: [42, 43, 44, 45, 46, 47]
 
+monitoring:
+  enabled: true
+  gpu_index: 0
+  sample_interval_seconds: 0.2
+  save_raw_samples: false
+  monitor_model_loading: true
+
 
 paths:
   prompts_file: "data/prompts/prompts.csv"

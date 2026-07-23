@@ -6,6 +6,8 @@ model:
   huggingface_id: RunDiffusion/Juggernaut-XL-v9
   device: cuda
   quantization: int8
+  quantized_components:
+    - unet
 
 generation:
   num_inference_steps: 15
@@ -14,6 +16,14 @@ generation:
   width: 512
   height: 512
   seeds: [42, 43, 44, 45, 46, 47]
+
+
+monitoring:
+  enabled: true
+  gpu_index: 0
+  sample_interval_seconds: 0.2
+  save_raw_samples: false
+  monitor_model_loading: true
 
 paths:
   prompts_file: data/prompts/prompts.csv
