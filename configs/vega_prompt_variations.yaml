@@ -1,0 +1,36 @@
+project:
+  name: SynthSE
+
+model:
+  name: segmind-vega
+  huggingface_id: segmind/Segmind-Vega
+  device: cuda
+  quantization: none
+
+generation:
+  num_inference_steps: 20
+  guidance_scale: 7.5
+  width: 512
+  height: 512
+  seeds: [42, 43, 44]
+
+prompt_variation:
+  enabled: true
+  include_original: true
+  variants_per_prompt: 5
+
+  types:
+    - typo_swap
+    - punctuation
+    - case
+    - article_drop
+    - adjacent_word_swap
+  seed: 1
+
+paths:
+  prompts_file: data/prompts/prompts_style_test.csv
+  output_images_dir: outputs/prompt_variations/images
+  output_logs_dir: outputs/prompt_variations/logs
+
+run:
+  max_prompts: 6
