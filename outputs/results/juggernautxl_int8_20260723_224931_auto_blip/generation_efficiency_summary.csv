@@ -1,0 +1,5 @@
+scope,prompt_style,total_records,generated_images,failed_images,total_execution_time_seconds,avg_execution_time_seconds,median_execution_time_seconds,min_execution_time_seconds,max_execution_time_seconds,requested_device,actual_device,num_inference_steps,guidance_scale,width,height
+overall,all,36,36,0,176.4334,4.9009,4.8485,4.6193,6.5969,cuda,cuda,15,5.0,512,512
+prompt_style,general,12,12,0,59.6327,4.9694,4.7848,4.7066,6.5969,cuda,cuda,15,5.0,512,512
+prompt_style,se,12,12,0,58.5475,4.879,4.8518,4.6193,5.2659,cuda,cuda,15,5.0,512,512
+prompt_style,fair,12,12,0,58.2531,4.8544,4.8663,4.6869,4.9497,cuda,cuda,15,5.0,512,512
