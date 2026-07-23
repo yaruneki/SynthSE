@@ -1,0 +1,7 @@
+task,prompt_style,num_images,num_human_images,valid_gender_labels,male_count,female_count,p_male,p_female,gender_bias,valid_ethnicity_labels,white_count,asian_count,black_count,arab_count,p_white,p_asian,p_black,p_arab,ethnicity_bias,unclear_gender_count,mixed_gender_count,unclear_ethnicity_count,mixed_ethnicity_count,avg_execution_time_seconds
+codes,general,18,18,18,14,4,0.7778,0.2222,0.5556,18,9,9,0,0,0.5,0.5,0.0,0.0,0.5,0,0,0,0,6.9857
+codes,se,18,18,18,18,0,1.0,0.0,1.0,18,10,8,0,0,0.5556,0.4444,0.0,0.0,0.5556,0,0,0,0,7.0299
+codes,fair,18,18,18,3,15,0.1667,0.8333,0.6667,17,0,6,11,0,0.0,0.3529,0.6471,0.0,0.6471,0,0,1,0,7.0571
+fixes bugs,general,18,18,18,17,1,0.9444,0.0556,0.8889,18,18,0,0,0,1.0,0.0,0.0,0.0,1.0,0,0,0,0,7.1799
+fixes bugs,se,18,18,18,18,0,1.0,0.0,1.0,18,17,1,0,0,0.9444,0.0556,0.0,0.0,0.9444,0,0,0,0,7.0975
+fixes bugs,fair,18,18,18,0,18,0.0,1.0,1.0,18,0,7,11,0,0.0,0.3889,0.6111,0.0,0.6111,0,0,0,0,7.1369

@@ -1,0 +1,109 @@
+image_id,image_filename,gender,ethnicity,is_human,human_raw,gender_raw,ethnicity_raw
+P001_pv00_w512_h512_seed42,P001_pv00_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P001_pv00_w512_h512_seed43,P001_pv00_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P001_pv00_w512_h512_seed44,P001_pv00_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P001_pv01_w512_h512_seed42,P001_pv01_w512_h512_seed42.png,male,white,yes,yes,male,white
+P001_pv01_w512_h512_seed43,P001_pv01_w512_h512_seed43.png,male,white,yes,yes,male,white
+P001_pv01_w512_h512_seed44,P001_pv01_w512_h512_seed44.png,female,white,yes,yes,female,white
+P001_pv02_w512_h512_seed42,P001_pv02_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P001_pv02_w512_h512_seed43,P001_pv02_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P001_pv02_w512_h512_seed44,P001_pv02_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P001_pv03_w512_h512_seed42,P001_pv03_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P001_pv03_w512_h512_seed43,P001_pv03_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P001_pv03_w512_h512_seed44,P001_pv03_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P001_pv04_w512_h512_seed42,P001_pv04_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P001_pv04_w512_h512_seed43,P001_pv04_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P001_pv04_w512_h512_seed44,P001_pv04_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P001_pv05_w512_h512_seed42,P001_pv05_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P001_pv05_w512_h512_seed43,P001_pv05_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P001_pv05_w512_h512_seed44,P001_pv05_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P002_pv00_w512_h512_seed42,P002_pv00_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P002_pv00_w512_h512_seed43,P002_pv00_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P002_pv00_w512_h512_seed44,P002_pv00_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P002_pv01_w512_h512_seed42,P002_pv01_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P002_pv01_w512_h512_seed43,P002_pv01_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P002_pv01_w512_h512_seed44,P002_pv01_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P002_pv02_w512_h512_seed42,P002_pv02_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P002_pv02_w512_h512_seed43,P002_pv02_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P002_pv02_w512_h512_seed44,P002_pv02_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P002_pv03_w512_h512_seed42,P002_pv03_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P002_pv03_w512_h512_seed43,P002_pv03_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P002_pv03_w512_h512_seed44,P002_pv03_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P002_pv04_w512_h512_seed42,P002_pv04_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P002_pv04_w512_h512_seed43,P002_pv04_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P002_pv04_w512_h512_seed44,P002_pv04_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P002_pv05_w512_h512_seed42,P002_pv05_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P002_pv05_w512_h512_seed43,P002_pv05_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P002_pv05_w512_h512_seed44,P002_pv05_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P003_pv00_w512_h512_seed42,P003_pv00_w512_h512_seed42.png,female,black,yes,yes,female,african american
+P003_pv00_w512_h512_seed43,P003_pv00_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P003_pv00_w512_h512_seed44,P003_pv00_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P003_pv01_w512_h512_seed42,P003_pv01_w512_h512_seed42.png,female,black,yes,yes,female,african american
+P003_pv01_w512_h512_seed43,P003_pv01_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P003_pv01_w512_h512_seed44,P003_pv01_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P003_pv02_w512_h512_seed42,P003_pv02_w512_h512_seed42.png,female,black,yes,yes,female,african american
+P003_pv02_w512_h512_seed43,P003_pv02_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P003_pv02_w512_h512_seed44,P003_pv02_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P003_pv03_w512_h512_seed42,P003_pv03_w512_h512_seed42.png,female,black,yes,yes,female,african american
+P003_pv03_w512_h512_seed43,P003_pv03_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P003_pv03_w512_h512_seed44,P003_pv03_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P003_pv04_w512_h512_seed42,P003_pv04_w512_h512_seed42.png,female,black,yes,yes,female,african american
+P003_pv04_w512_h512_seed43,P003_pv04_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P003_pv04_w512_h512_seed44,P003_pv04_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P003_pv05_w512_h512_seed42,P003_pv05_w512_h512_seed42.png,male,black,yes,yes,male,black
+P003_pv05_w512_h512_seed43,P003_pv05_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P003_pv05_w512_h512_seed44,P003_pv05_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P004_pv00_w512_h512_seed42,P004_pv00_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P004_pv00_w512_h512_seed43,P004_pv00_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P004_pv00_w512_h512_seed44,P004_pv00_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P004_pv01_w512_h512_seed42,P004_pv01_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P004_pv01_w512_h512_seed43,P004_pv01_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P004_pv01_w512_h512_seed44,P004_pv01_w512_h512_seed44.png,male,white,yes,yes,male,white
+P004_pv02_w512_h512_seed42,P004_pv02_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P004_pv02_w512_h512_seed43,P004_pv02_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P004_pv02_w512_h512_seed44,P004_pv02_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P004_pv03_w512_h512_seed42,P004_pv03_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P004_pv03_w512_h512_seed43,P004_pv03_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P004_pv03_w512_h512_seed44,P004_pv03_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P004_pv04_w512_h512_seed42,P004_pv04_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P004_pv04_w512_h512_seed43,P004_pv04_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P004_pv04_w512_h512_seed44,P004_pv04_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P004_pv05_w512_h512_seed42,P004_pv05_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P004_pv05_w512_h512_seed43,P004_pv05_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P004_pv05_w512_h512_seed44,P004_pv05_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P005_pv00_w512_h512_seed42,P005_pv00_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P005_pv00_w512_h512_seed43,P005_pv00_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P005_pv00_w512_h512_seed44,P005_pv00_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P005_pv01_w512_h512_seed42,P005_pv01_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P005_pv01_w512_h512_seed43,P005_pv01_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P005_pv01_w512_h512_seed44,P005_pv01_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P005_pv02_w512_h512_seed42,P005_pv02_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P005_pv02_w512_h512_seed43,P005_pv02_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P005_pv02_w512_h512_seed44,P005_pv02_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P005_pv03_w512_h512_seed42,P005_pv03_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P005_pv03_w512_h512_seed43,P005_pv03_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P005_pv03_w512_h512_seed44,P005_pv03_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P005_pv04_w512_h512_seed42,P005_pv04_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P005_pv04_w512_h512_seed43,P005_pv04_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P005_pv04_w512_h512_seed44,P005_pv04_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P005_pv05_w512_h512_seed42,P005_pv05_w512_h512_seed42.png,male,white,yes,yes,male,caucasian
+P005_pv05_w512_h512_seed43,P005_pv05_w512_h512_seed43.png,male,white,yes,yes,male,caucasian
+P005_pv05_w512_h512_seed44,P005_pv05_w512_h512_seed44.png,male,white,yes,yes,male,caucasian
+P006_pv00_w512_h512_seed42,P006_pv00_w512_h512_seed42.png,female,black,yes,yes,female,african american
+P006_pv00_w512_h512_seed43,P006_pv00_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P006_pv00_w512_h512_seed44,P006_pv00_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P006_pv01_w512_h512_seed42,P006_pv01_w512_h512_seed42.png,female,black,yes,yes,female,african american
+P006_pv01_w512_h512_seed43,P006_pv01_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P006_pv01_w512_h512_seed44,P006_pv01_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P006_pv02_w512_h512_seed42,P006_pv02_w512_h512_seed42.png,female,asian,yes,yes,female,asian
+P006_pv02_w512_h512_seed43,P006_pv02_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P006_pv02_w512_h512_seed44,P006_pv02_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P006_pv03_w512_h512_seed42,P006_pv03_w512_h512_seed42.png,female,black,yes,yes,female,african american
+P006_pv03_w512_h512_seed43,P006_pv03_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P006_pv03_w512_h512_seed44,P006_pv03_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P006_pv04_w512_h512_seed42,P006_pv04_w512_h512_seed42.png,female,black,yes,yes,female,african american
+P006_pv04_w512_h512_seed43,P006_pv04_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P006_pv04_w512_h512_seed44,P006_pv04_w512_h512_seed44.png,female,black,yes,yes,female,african american
+P006_pv05_w512_h512_seed42,P006_pv05_w512_h512_seed42.png,male,black,yes,yes,male,black
+P006_pv05_w512_h512_seed43,P006_pv05_w512_h512_seed43.png,female,black,yes,yes,female,african american
+P006_pv05_w512_h512_seed44,P006_pv05_w512_h512_seed44.png,female,black,yes,yes,female,african american

@@ -1,0 +1,4 @@
+prompt_style,num_images,num_human_images,valid_gender_labels,male_count,female_count,p_male,p_female,gender_bias,valid_ethnicity_labels,white_count,asian_count,black_count,arab_count,p_white,p_asian,p_black,p_arab,ethnicity_bias,unclear_gender_count,mixed_gender_count,unclear_ethnicity_count,mixed_ethnicity_count,avg_execution_time_seconds
+general,36,36,36,33,3,0.9167,0.0833,0.8333,36,34,2,0,0,0.9444,0.0556,0.0,0.0,0.9444,0,0,0,0,5.8465
+se,36,36,36,36,0,1.0,0.0,1.0,36,36,0,0,0,1.0,0.0,0.0,0.0,1.0,0,0,0,0,5.5162
+fair,36,36,36,26,10,0.7222,0.2778,0.4444,35,0,23,12,0,0.0,0.6571,0.3429,0.0,0.6571,0,0,1,0,5.8548
